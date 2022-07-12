@@ -1,0 +1,196 @@
+create table animal( --1
+                       name_of_animal varchar(50),
+                       age int not null ,
+                       id serial primary key,
+                       living_place varchar(50),
+                       food_id int references food(id)
+);
+
+insert into animal (name_of_animal, age, living_place, food_id)
+values ('elephant',14,'Africa', 2),
+       ('lion', 5, 'Africa', 1),
+       ('monkey', 2, 'Savanna', 3),
+       ('rabbit', 2, 'South America', 4),
+       ('dog',6, 'KG', 1);
+
+create table food ( --2
+                      id serial primary key,
+                      name_of_food varchar(35),
+                      calories int not null,
+                      grams_of_food int not null,
+                      taste_from_1_to_10 int not null
+);
+insert into food(name_of_food, calories, grams_of_food, taste_from_1_to_10)
+values ('sheep meat',209, 100, 8),
+       ('grass', 36, 100, 4),
+       ('mango',60, 100, 10),
+       ('carrot', 35, 100, 7);
+
+create table fruits( --3
+                       name_of_fruit varchar(15),
+                       id serial primary key,
+                       place_of_growing varchar(30)
+);
+insert into fruits(name_of_fruit, place_of_growing)
+values ('banana','South Asia'),
+       ('apple','KG'),
+       ('orange','Central America'),
+       ('strawberry','KZ'),
+       ('kiwi','East China');
+
+create table vegetables( --4
+                           name_of_vegetable varchar(20),
+                           id serial primary key,
+                           utility_from_1_to_10 int not null,
+                           price int not null
+);
+insert into vegetables(name_of_vegetable, utility_from_1_to_10, price)
+values ('cabbage', 10, 20),
+       ('avocado', 7, 325),
+       ('cucumber',7, 10),
+       ('potato', 8, 15);
+
+create table snacks( --5
+                       name_of_snacks varchar(30),
+                       id serial primary key,
+                       popularity_from_1_to_10 int not null,
+                       taste varchar(30)
+);
+insert into snacks(name_of_snacks, popularity_from_1_to_10, taste)
+values ('Lays', 9, 'salty'),
+       ('Coca - Cola', 7, 'sweet'),
+       ('Oreo', 8, 'sweet'),
+       ('Fanta', 8, 'sweet'),
+       ('m&m`s', 7, 'too sweet');
+
+create table household_chemicals( --6
+                                    name_of_household_chemical varchar(35),
+                                    id  serial primary key,
+                                    caustic_from_1_to_4 int not null,
+                                    method_of_application varchar(255)
+);
+insert into household_chemicals(name_of_household_chemical, caustic_from_1_to_4, method_of_application)
+values ('bleach', 2, 'It is necessary to work with the substance in a well-ventilated room, using protective equipment'),
+       ('glue', 3, 'handle the glue carefully so that it does not get on your hands, hair, eyes, clothes after finishing work, tighten the lid of the glue jar tightly, rinse the brush and hands with soap and water'),
+       ('soap', 4, 'for external use only');
+
+create table toys( --7
+                     name_of_toy varchar(30) ,
+                     id serial primary key,
+                     material_for_toy varchar(30),
+                     price int not null
+);
+insert into toys (name_of_toy, material_for_toy, price)
+values ('lorry', 'plastic', 500),
+       ('dall','plastic and cotton', 1000),
+       ('police car', 'plastic', 1500),
+       ('piano', 'metal', 9000);
+
+create table drinks ( --8
+                        name_of_drink varchar(30),
+                        id serial primary key,
+                        temperature_for_consumption int not null, --температура для употребления напитка
+                        composition_of_drink varchar(50), --состав напитка
+                        birthplace_of_drink varchar(25)--родина напитка
+);
+insert into drinks (name_of_drink, temperature_for_consumption, composition_of_drink, birthplace_of_drink)
+values ('americano', 65, 'espresso and water with temperature 65', 'Italy'),
+       ('tea', 45, 'leaf tea and hot water', 'China'),
+       ('juice', 10, 'squeezed fruit', 'not known'),
+       ('compote', 5, 'cooked dried fruits', 'France'),
+       ('vine', 14, 'grapes, sweet fruits and plants', 'Greece');
+
+create table ice_creams ( --9
+                            name_of_ice_cream varchar(30),
+                            id serial primary key,
+                            price int not null,
+                            what_ice_cream_is_made_of varchar(30)
+);
+insert into ice_creams (name_of_ice_cream, price, what_ice_cream_is_made_of)
+values ('karakum', 23, 'chocolate'),
+       ('bahroma', 70, 'chocolate snd fruit'),
+       ('bim bom', 24, 'chocolate, nuts and plombir');
+
+create table milk_products ( --10
+                               name_of_milk_products varchar(30),
+                               id serial primary key,
+                               price int not null,
+                               freshness varchar(30),
+                               milk_volume varchar(30)
+);
+insert into milk_products (name_of_milk_products, price, freshness, milk_volume)
+values ('kifir', 50, 'yesterday', '1l'),
+       ('milk', 45, 'today morning', '1l'),
+       ('cheese', 1100, 'last week', '200gr'),
+       ('yogurt', 55, 'last week', '100gr');
+
+create table meet_products (--11
+                               name_of_meet_product varchar(30),
+                               id serial primary key,
+                               fat_content_of_meat int not null,
+                               freshness_from_1_to_10 int not null
+);
+insert into meet_products (name_of_meet_product, fat_content_of_meat, freshness_from_1_to_10)
+values ('ham', 8.60, 8),
+       ('bacon', 37.13, 7),
+       ('chiken', 3.08, 9),
+       ('beef', 12.73, 7);
+
+create table purchases ( --12
+                           id serial primary key,
+                           name_of_market varchar(35),
+                           quantity_of_products int not null,
+                           purchase_price int not null,
+                           meet_products_id int references meet_products(id),
+                           milk_products_id int references milk_products(id),
+                           ice_creams_id int references ice_creams(id),
+                           drinks_id int references drinks(id),
+                           toys_id int references toys(id),
+                           household_id int references toys(id),
+                           snacks_id int references snacks(id),
+                           vegetables_id int references vegetables(id),
+                           fruits_id int references fruits(id)
+);
+insert into purchases(name_of_market, quantity_of_products, purchase_price, meet_products_id, milk_products_id, ice_creams_id, drinks_id, toys_id, household_id, snacks_id, vegetables_id, fruits_id)
+values ('Narodnyi', 9, 2500, 1, 2, 3, 4, 1, 1, 2, 3, 4),
+       ('Frunze', 12, 3000, 2, 3, 2, 5, 2, 2, 3, 4, 5),
+       ('Globus', 11, 1200, 3, 4, 1, 2, 3, 4, 1, 2, 3),
+       ('Daku', 10, 2000, 4, 1, 3, 4, 4, 2, 3, 4, 5);
+
+create table weather ( --13
+                         temperature int not null,
+                         precipitation varchar(30),
+                         place varchar(30),
+                         id serial primary key
+);
+insert into weather (temperature, precipitation, place)
+values (25, 'non', 'Bishkek'),
+       (-10, 'snowfall', 'Chuyskaya oblast'),
+       (19, 'light rain', 'Osh');
+
+
+create table day ( --14
+                     event varchar(30),
+                     id serial primary key,
+                     weather_id int references weather(id),
+                     time_of_sunrise int not null,
+                     time_of_sunset int not null
+);
+insert into day (event, weather_id, time_of_sunrise, time_of_sunset)
+values ('birthday', 1, 5.30, 20.30),
+       ('New Year', 2, 9.00, 17.00),
+       ('Nooruz', 3, 7.45, 18.00);
+
+create table birthday ( --15
+                          id  serial primary key,
+                          weather_id int references weather(id),
+                          name_of_birthday_boy_or_girl varchar(30),
+                          age_of_birthday_boy_or_girl int not null,
+                          place_of_event varchar(40)
+);
+insert into birthday (weather_id, name_of_birthday_boy_or_girl, age_of_birthday_boy_or_girl, place_of_event)
+values (1, 'Jake',16, 'mountains'),
+       (2, 'Lola', 12, 'cafe'),
+       (3, 'Sam', 19,'park'),
+       (1, 'Kate', 25, 'park');
+      
